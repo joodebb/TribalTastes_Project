@@ -47,12 +47,17 @@ body{
 }
 
 
-.nav ul li a{
+.nav ul li a {
     text-decoration: none;
     color: black;
     font-weight: 500;
     font-family: sans-serif;
     font-size: 17px;
+}
+
+
+ul li a:hover{
+  color:#dc116f ;
 }
 
 
@@ -94,9 +99,16 @@ input{
     
 }
 
+.content h1 :hover{
+  color:#dc116f ;
+  
+}
+
 h1:hover {
-    transform: scale(1.05); 
+    transform: scale(1.05);
     cursor: pointer;
+    color:#dc116f ;
+    
 }
 
 .content h1 a {
@@ -113,10 +125,10 @@ h1:hover {
 .food-images {
     white-space: nowrap;
     animation: moveLeft 50s linear infinite;
-    background-color: #dc116f;
+    background-color: aliceblue;
     margin-top: 10px;
-   
-    
+    display: flex;
+    animation: moveLeft 150s linear infinite;
   } 
 
 
@@ -124,23 +136,64 @@ h1:hover {
     display: inline-block;
     width: 300px;
     height: 300px;
-    transform: scale(1.05); 
     cursor: pointer;
     margin-top: 30px;
     margin-bottom: 30px;
     padding-right: 30px;
-    
-   
   }
 
 
   @keyframes moveLeft {
-    0% {
-      transform: translateX(100%);
+    from {
+      transform: translateX(0);
     }
-    
-    100% {
-      transform: translateX(-100vw -100%);
+    to {
+      transform: translateX(-100%); /* Moves images 100% to the left */
     }
-  }
 
+    }
+
+ .trends{
+  text-align: center;
+  justify-content: center;
+  padding-bottom: 50px;
+  font-family: sans-serif;
+ }
+
+
+ .trends  h2 :hover{
+  color:#dc116f ;
+  
+}
+
+h2:hover {
+  transform: scale(1.05);
+  cursor: pointer;
+  color:#dc116f ;
+  
+}
+
+.trends h2 a{
+  text-decoration: none;
+  color: black;
+}
+
+.one{
+   width: 350px;
+   height: 350px;
+   padding-top: 50px;
+   padding-bottom: 10px;
+   border-radius: 100%;
+   animation: rotate 15s linear infinite;
+}
+
+
+
+@keyframes rotate {
+    0%{
+        transform: rotate(0deg);
+    }
+    100%{
+        transform: rotate(360deg)
+    }
+}
