@@ -1,15 +1,16 @@
+
+/*Home Page */
 *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    
+
 }
 
 
 body{
    
     background-color:white;
-    
 }
 
 .nav .logo img{
@@ -66,25 +67,7 @@ input{
     padding: 10px 20px;
 }
 
-
-.signin{
-    background-color: #dc116f;
-    color:white;
-    outline: none;
-    cursor: pointer;
-    
-}
-
-
-.signup{
-    background-color: #dc116f;
-    color:white;
-    outline: none;
-    cursor: pointer;
-    margin-right: 50px;
-
-}
-
+/* Search Button */
 .search form {
   position: relative;
 }
@@ -137,8 +120,7 @@ input{
 
 .dropdown:hover .dropdown-content {
   display: block;
- 
-  
+
 }
 
 .dropbtn {
@@ -146,7 +128,6 @@ input{
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  
 }
 
 .dropbtn img {
@@ -162,7 +143,6 @@ input{
     text-decoration: none;
    
 }
-
 
 .content h1{
     text-decoration: none;
@@ -180,7 +160,6 @@ h1:hover {
     transform: scale(1.05);
     cursor: pointer;
     color:#dc116f ;
-    
 }
 
 .content h1 a {
@@ -320,7 +299,7 @@ iframe{
 .chef-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(2, 1fr);
+  
   gap: 30px;
   width: 100%;
   height: 100%;
@@ -412,3 +391,152 @@ color:#dc116f ;
   font-family: sans-serif;
   align-items: center;
  }
+
+ .Login Box{
+ margin-left: 20px;
+ }
+
+
+
+ /*Browse chef Page */
+
+.middle-1{
+  text-align: center;
+  justify-content: center;
+  font-family: sans-serif;
+  border-top: 2px solid #dc116f;
+  padding-top: 25px;
+
+}
+
+.middle-1 h2 :hover{
+  color:#dc116f ;
+  
+  
+}
+
+.middle-1  h2 a{
+  text-decoration: none;
+  color: black;
+}
+
+.middle-1 h2{
+  margin-top: 10px;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.chef-container-1 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 30px;
+  width: 100%;
+  height: 100%;
+  padding-right: 20px;
+  padding-left: 20px;
+  
+}
+
+.chef-1 {
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  margin-bottom: 70px;
+ 
+}
+
+
+.chef-1 img {
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 50%;
+  
+ 
+}
+
+.chef-1 img:hover {
+  transform: scale(1.1); 
+}
+
+.chef-1 h4{
+  font-style: italic;
+  color: #dc116f;
+}
+
+/*Browse Recipe Page*/
+
+.filter-container{
+  
+  padding: 20px;
+}
+
+.filter-container h2{
+  text-align: center;
+  padding-bottom: 10px;
+}
+
+.filter-container form label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.filter-container form select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #dc116f;
+    border-radius: 4px;
+}
+
+
+/* About Us */
+
+.about-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 50px;
+  margin-left: 50px;
+  margin-right: 50px;
+  padding-right: 50px;
+  margin-bottom: 50px;
+
+}
+
+.about h2{
+  font-family: sans-serif;
+  text-align: center;
+  padding-bottom: 20px;
+}
+
+.about p{
+  font-family: sans-serif;
+  margin-left: 50px;
+  margin-right: 50px;
+  margin-bottom: 50px;
+}
+
+.about-text h3 {
+  font-family: sans-serif;
+padding-bottom: 10px;
+color: #dc116f;
+}
+
+.about-text p{
+  font-family: sans-serif;
+  font-style: italic;
+
+}
+
+.about-image img {
+  width: 100%;
+  height: 380px;
+  margin-right: 10px;
+}
+
+.about-image img:hover {
+  transform: scale(1.1);
+}
+
