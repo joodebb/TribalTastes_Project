@@ -41,7 +41,7 @@
 
     </section>
             <div class="content">
-                <h1><a href="recipe.html">Browse Recipes</a></h1>
+                <h1><a href="recipe.php">Browse Recipes</a></h1>
                 
             </div>
                 <div class="container">
@@ -67,7 +67,7 @@
             
 
             <div class=" middle">
-                <h2><a href="chef.html">Explore our Chef </a></h2>
+                <h2><a href="chef.php">Explore our Chef </a></h2>
             </div>
             
            <div class="chef-container">
