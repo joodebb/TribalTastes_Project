@@ -12,7 +12,7 @@
         <div class="nav">
             <div class="logo"><a href="index.html"><img src="assests/images/logo1.png" alt="logo"></a></div>
             <ul>
-                <li><a href="index.html">Home</a></li>
+                <li><a href="">Home</a></li>
                 <li><a href="#">About Us</a></li>
                 <li><a href="#">Contact Us</a></li>
             </ul>

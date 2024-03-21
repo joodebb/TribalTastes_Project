@@ -13,10 +13,10 @@
         <div class="nav">
             <div class="logo"><a href="index.html"><img src="assests/images/logo1.png" alt="logo"></a></div>
             <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About Us</a></li>
+                <li><a href="index.php">Home</a></li>
+                <li><a href="about.php">About Us</a></li>
                 <li><a href="#">Contact Us</a></li>
-                <li><a href="signup.html">Register</a></li>
+                <li><a href="signup.php">Register</a></li>
             </ul>
             
 
@@ -42,6 +42,7 @@
     </section>
             <div class="content">
                 <h1><a href="recipe.html">Browse Recipes</a></h1>
+                
             </div>
                 <div class="container">
                     <div class="food-images">
