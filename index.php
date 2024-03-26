@@ -57,29 +57,33 @@ $logoutLink = $isLogged ? '<li><a href="../includes/logout.inc.php">Logout</a></
             </li>
 
         </div>
+        <div class="welcome">
+            <h1> Welcome to TribalTastes Food Blog <h1>
+
+        </div>
 
     </section>
             <div class="content">
-                <h1><a href="recipe.php">Browse Recipes</a></h1>
-                
+                <h1><a href="recipe.php">Trending Recipes.....</a></h1> 
             </div>
-                <div class="container">
+            
+                <div class="container"><a href="recipe.php">
                     <div class="food-images">
-                    <img src="assests/images/food9.jpeg" alt="hollof">
-                    <img src="assests/images/food3.jpeg" alt="hollof">
-                    <img src="assests/images/image12.jpg" alt="hollof">
-                    <img src="assests/images/image13.jpg" alt="hollof">
-                    <img src="assests/images/food6.jpeg" alt="hollof">
-                    <img src="assests/images/image6.jpg" alt="hollof">
-                    <img src="assests/images/food.jpeg" alt="hollof">
-                    <img src="assests/images/food8.jpeg" alt="hollof">
-                    <img src="assests/images/image5.jpg" alt="hollof">
-                    <img src="assests/images/image10.jpg" alt="hollof">
-                    <img src="assests/images/image.jpg" alt="hollof">
-                    <img src="assests/images/image4.jpg" alt="hollof">
-                    <img src="assests/images/image9.jpg" alt="hollof">
-                    <img src="assests/images/image2.jpg" alt="hollof">
-                    <img src="assests/images/gob3.jpg" alt="gobe">
+                    <img src="assests/images/food9.jpeg" alt="image1">
+                    <img src="assests/images/food3.jpeg" alt="image2">
+                    <img src="assests/images/agusie stew.jpg" alt="image3">
+                    <img src="assests/images/image13.jpg" alt="image4">
+                    <img src="assests/images/food6.jpeg" alt="image5">
+                    <img src="assests/images/image6.jpg" alt="image6">
+                    <img src="assests/images/food.jpeg" alt="image7">
+                    <img src="assests/images/food8.jpeg" alt="image8">
+                    <img src="assests/images/image5.jpg" alt="image9">
+                    <img src="assests/images/image10.jpg" alt="image10">
+                    <img src="assests/images/image.jpg" alt="image11">
+                    <img src="assests/images/image4.jpg" alt="image12">
+                    <img src="assests/images/image9.jpg" alt="image10">
+                    <img src="assests/images/image2.jpg" alt="image10">
+                    <img src="assests/images/gob3.jpg" alt="image10">
                 </div>
                 </div>
 

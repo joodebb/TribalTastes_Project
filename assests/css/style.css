@@ -76,7 +76,7 @@ input{
   width: 200px;
   padding: 10px;
   border: 1px solid #dc116f;
-  border-radius: 50px;
+  border-radius: 5px;
   outline: none;
 }
 
@@ -148,6 +148,7 @@ input{
     text-decoration: none;
     font-family: sans-serif;
     transition: transform 0.2s ease-in-out;
+    font-size: 20px;
     
 }
 
@@ -167,39 +168,50 @@ h1:hover {
     color: black;
 }
 
+/*Trending Recipe images */
+.welcome h1{
+  text-align: center;
+  padding-bottom: 20px;
+}
+.Trending h3{
+  text-align: center;
+  padding-bottom: 15px;
+}
   .container {
     width: 100%;
     overflow: hidden;
     position: relative;
+    padding-bottom: 50px;
+    
   }
 
 .food-images {
-    white-space: nowrap;
     animation: moveLeft 50s linear infinite;
     background-color: aliceblue;
-    margin-top: 50px;
+    margin-top: 20px;
     display: flex;
     animation: moveLeft 150s linear infinite;
+    text-align: center;
+
   } 
 
 
   .food-images img {
     display: inline-block;
-    width: 300px;
-    height: 300px;
+    width: 200px;
+    height: 200px;
     cursor: pointer;
     margin-top: 30px;
     margin-bottom: 30px;
     padding-right: 30px;
-    border-radius: 40%;
+    border-radius: 18%;
   }
 
   .food-images img:hover {
     transform: scale(1.1); 
+
   }
   
-
-
   @keyframes moveLeft {
     from {
       transform: translateX(0);
@@ -210,11 +222,17 @@ h1:hover {
 
     }
 
+    
+
+
  .trends{
   text-align: center;
   justify-content: center;
   padding-bottom: 50px;
   font-family: sans-serif;
+  padding-top: 20px;
+  padding-bottom: 20px;
+ 
  }
 
 
@@ -299,13 +317,26 @@ iframe{
 .chef-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  
   gap: 30px;
   width: 100%;
   height: 100%;
   padding-right: 20px;
   padding-left: 20px;
-  
+  background-image: url("https://images.pexels.com/photos/4518842/pexels-photo-4518842.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
+  background-size: cover; /* Adjust the background size as needed */
+  background-position: center; /* Adjust the background position as needed */
+  background-repeat: no-repeat;
+  position: relative;
+}
+
+.chef-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.5); /* Adjust the alpha value to control transparency */
 }
 
 .chef {
