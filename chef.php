@@ -1,3 +1,20 @@
+
+<?php 
+
+// Start session
+
+include("./includes/utils/start_session.php");
+
+// Check if the user is logged in
+$isLogged = isset($_SESSION['user_id']);
+
+// Set link dynamically
+$loginLink = $isLogged ? "" : '<li><a href="../login.php">Login</a></li>';
+$recipeleLink = $isLogged ? '<li><a href="../recipe.php">Recipe</a></li>' : "";
+$registerLink = $isLogged ? "" : '<li><a href="../signup.php">Register</a></li>';
+$logoutLink = $isLogged ? '<li><a href="../includes/logout.inc.php">Logout</a></li>' : "";
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,11 +28,12 @@
 
     <section class="menu">
         <div class="nav">
-            <div class="logo"><a href="index.html"><img src="assests/images/logo1.png" alt="logo"></a></div>
+            <div class="logo"><a href="index.php"><img src="assests/images/logo1.png" alt="logo"></a></div>
             <ul>
-                <li><a href="">Home</a></li>
-                <li><a href="about.html">About Us</a></li>
+                <li><a href="index.php">Home</a></li>
+                <li><a href="about.php">About Us</a></li>
                 <li><a href="#">Contact Us</a></li>
+                 <?php echo $logoutLink; ?>
             </ul>
             
 
@@ -30,9 +48,7 @@
                   <img src="assests/images/icon.png" alt="Profile">
                 </a>
                 <div class="dropdown-content">
-                    <a href="#">View Profile</a>
-                    <a href="#">Edit Profile</a>
-                    <a href="#">Logout</a>
+                    <a href="manage-profile.php">Edit Profile</a>
                   </div>
             </li>
 
@@ -41,7 +57,7 @@
     </section>
 
     <div class=" middle-1">
-        <h2><a href="chef.html">Explore The Profiles of our Seasoned Chef </a></h2>
+        <h2><a href="chef.php">Explore The Profiles of our Seasoned Chef </a></h2>
     </div>
     
    <div class="chef-container-1">

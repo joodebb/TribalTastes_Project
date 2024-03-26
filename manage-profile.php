@@ -1,21 +1,52 @@
 <?php 
-require_once "includes/config_session.inc.php";
-require_once "includes/signup_view.inc.php";
+
+// Start session
+
+include("./includes/utils/start_session.php");
+
+// Check if the user is logged in
+$isLogged = isset($_SESSION['user_id']);
+
+// Set link dynamically
+$loginLink = $isLogged ? "" : '<li><a href="../login.php">Login</a></li>';
+$recipeleLink = $isLogged ? '<li><a href="../recipe.php">Recipe</a></li>' : "";
+$registerLink = $isLogged ? "" : '<li><a href="../signup.php">Register</a></li>';
+$logoutLink = $isLogged ? '<li><a href="../includes/logout.inc.php">Logout</a></li>' : "";
 ?>
 
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="assests/css/style.css">
-    <link rel="stylesheet" href="assests/css/unsemantic-grid-responsive-tablet.css">
-    <title>TribalTaste/ Signup Page</title>
-</head>
-<body>
 
-<section class="menu">
+<?php 
+session_start();
+
+include("./includes/dbh.inc.php");
+
+try {
+  // Check for user_id
+  if (isset($_SESSION['user_id'])) {
+    // select user from the database
+    $user_id = $_SESSION['user_id'];
+    // To prevent sql injection
+    $statement = $pdo->prepare("SELECT * FROM users WHERE id = ?");
+    $statement->execute([$user_id]);
+    // execute task
+    $user = $statement->fetch(PDO::FETCH_ASSOC);
+
+    // Display user's profile if there is a user or display an error page if there is no user
+    if ($user) {
+      ?>
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="assests/css/style.css">
+       <link rel="stylesheet" href="assests/css/unsemantic-grid-responsive-tablet.css">
+        
+        <title>Profile Page</title>
+      </head>
+      <body>
+      <section class="menu">
         <div class="nav">
             <div class="logo"><a href="index.php"><img src="assests/images/logo1.png" alt="logo"></a></div>
             <ul>
@@ -23,6 +54,9 @@ require_once "includes/signup_view.inc.php";
                 <li><a href="about.php">About Us</a></li>
                 <li><a href="#">Contact Us</a></li>
                 <li><a href="signup.php">Register</a></li>
+                <li><a href="login.php">Login</a></li>
+                <?php echo $logoutLink; ?>
+                
             </ul>
             
 
@@ -38,42 +72,27 @@ require_once "includes/signup_view.inc.php";
                 </a>
                 <div class="dropdown-content">
                     <a href="manage-profile.php">Edit Profile</a>
-                    <a href="#">Logout</a>
                   </div>
             </li>
+
         </div>
+
     </section>
-    <div class=reg>
-    <h1> Welcome to TribalTastes</h1>
-    </div>
-    <div class=register-container>
-        <div class="Login-box">
-            <h2>Please enter your details</h3>
-            <br><br>
-            <form action="includes/signup.inc.php" method="post">
-            <?php 
-            signup_inputs();
-          ?>
-          <button>Sign up</button>
-         
-                <p>Do you have an account with us already?</p>
-             </form>
-            
-             <a href="/login.php">Login</a>
-             
-             <?php 
-          check_signup_errors();
+
+      <h1>Manage Account</h1>
+      <div class="container">
+        <div class="manage">
+        <h2>Update Personal Details</h2>
+          </div> 
+
+        <?php         
+        include("./components/profile-form.php");
         ?>
-        </div>
-        <div class=login-image>
-            <img src="https://images.unsplash.com/photo-1542435503-956c469947f6?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D">
+        
+     </div>
 
-        </div>
-
-        </div>
-
-
-        <footer>
+      
+<footer>
             <div class="footer-container">
                 <div class="social-media"></div>
                 <h4><a href="#">Contact Us</a></h4>
@@ -108,12 +127,20 @@ require_once "includes/signup_view.inc.php";
                 <h4 >TM & Copyright 2024 @ TribalTastes. All rights reserved </h4>
                 </div>
                
-
          </footer>
 
+      </body>
+      </html>
+      
+      <?php
+    } else {
+      echo "<h1>User not found</h1>";
+    }
+  } else {
+    echo "<h1>UserID not provided</h1>";
+  }
+} catch (PDOException $e) {
+  echo "Connection failed: " . $e->getMessage();
+}
 
-
-
-
-</body>
-</html>
+?>
