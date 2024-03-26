@@ -5,15 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="assests/css/style.css">
     <link rel="stylesheet" href="assests/css/unsemantic-grid-responsive-tablet.css">
-    <title>Document</title>
+    <title>About</title>
 </head>
 <body>
     <section class="menu">
         <div class="nav">
-            <div class="logo"><a href="#"><img src="assests/images/logo1.png" alt="logo"></a></div>
+            <div class="logo"><a href="index.php"><img src="assests/images/logo1.png" alt="logo"></a></div>
             <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">About Us</a></li>
+                <li><a href="index.php">Home</a></li>
+                <li><a href="about.php">About Us</a></li>
                 <li><a href="#">Contact Us</a></li>
             </ul>
             
@@ -29,8 +29,7 @@
                   <img src="assests/images/icon.png" alt="Profile">
                 </a>
                 <div class="dropdown-content">
-                    <a href="#">View Profile</a>
-                    <a href="#">Edit Profile</a>
+                    <a href="manage-profile.php">Edit Profile</a>
                     <a href="#">Logout</a>
                   </div>
             </li>

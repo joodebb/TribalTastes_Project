@@ -541,3 +541,82 @@ color: #dc116f;
   transform: scale(1.1);
 }
 
+/* Register Page */
+
+.reg h1{
+  text-align: center;
+  padding-bottom: 80px;
+}
+
+.register-container {
+  display: flex;
+  padding: 20px;
+  justify-content: space-around;
+  
+}
+
+.login-image img {
+  width: 600px; 
+  height: 500px;
+  border-radius: 10%;
+  padding-bottom: 20px;
+  transition: transform 0.5s ease-in-out;
+  
+}
+
+.login-image:hover img {
+  transform: scale(1.1);
+}
+
+  .Login-box input[type="text"],
+  .Login-box input[type="email"],
+  .Login-box input[type="password"]{
+    width: 200px;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #dc116f;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+
+ 
+  .Login-box form {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+
+  .Login-box form input,
+  .Login-box form button {
+    padding: 12px 10px;
+    border-radius: 10px;
+  }
+
+  
+
+  button {
+    display: block;
+    width: 80px;
+    padding: 7px;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: black;
+}
+
+.Login-box a{
+    color: #007bff;
+    text-decoration: none;
+    font-size: 20px;
+   
+}
+
+.Login-box a:hover{
+color: black;
+}
