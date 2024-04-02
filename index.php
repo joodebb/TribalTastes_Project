@@ -1,21 +1,27 @@
 
 <?php 
 
+// Check if session is started already or start session
+if (session_status() !== PHP_SESSION_ACTIVE) {
 // Start session
+session_start();
+}
 
 include("./includes/utils/start_session.php");
 
 // Check if the user is logged in
 $isLogged = isset($_SESSION['user_id']);
 
+// Check if the user is an admin
+$isAdmin = isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == 1;
+
 // Set link dynamically
 $loginLink = $isLogged ? "" : '<li><a href="../login.php">Login</a></li>';
-$recipeleLink = $isLogged ? '<li><a href="../recipe.php">Recipe</a></li>' : "";
+$recipeLink = $isLogged ? '<li><a href="../recipe.php">Recipe</a></li>' : "";
 $registerLink = $isLogged ? "" : '<li><a href="../signup.php">Register</a></li>';
-$logoutLink = $isLogged ? '<li><a href="../includes/logout.inc.php">Logout</a></li>' : "";
+$logoutLink = $isLogged ? '<li><a href="../includes/logout/logout.inc.php">Logout</a></li>' : "";
+$dashboardLink = $isAdmin ? '<li><a href="../dashboard.php">Dashboard</a></li>' : '';
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -37,25 +43,11 @@ $logoutLink = $isLogged ? '<li><a href="../includes/logout.inc.php">Logout</a></
                 <li><a href="#">Contact Us</a></li>
                 <li><a href="signup.php">Register</a></li>
                 <li><a href="login.php">Login</a></li>
+                <li><a href="chef.php">Chef</a></li>
+                <?php echo $dashboardLink; ?>
                 <?php echo $logoutLink; ?>
               
-            </ul>
-            
-            <li class="nav-item search">
-                <form action="#" method="get">
-                  <input type="text" placeholder="Search..." name="search">
-                  <button type="submit">Search</button>
-                </form>
-
-            <li class="nav-item dropdown">
-                <a href="#" class="dropbtn">
-                  <img src="assests/images/icon.png" alt="Profile">
-                </a>
-                <div class="dropdown-content">
-                    <a href="manage-profile.php">Edit Profile</a>
-                  </div>
-            </li>
-
+            </ul>  
         </div>
         <div class="welcome">
             <h1> Welcome to TribalTastes Food Blog <h1>
@@ -63,34 +55,63 @@ $logoutLink = $isLogged ? '<li><a href="../includes/logout.inc.php">Logout</a></
         </div>
 
     </section>
+    <section class="images">
             <div class="content">
-                <h1><a href="recipe.php">Trending Recipes.....</a></h1> 
+                <h1><a href="recipe.php">Browse Trending Recipes.....</a></h1> 
             </div>
             
-                <div class="container"><a href="recipe.php">
+                <div class="container">
                     <div class="food-images">
-                    <img src="assests/images/food9.jpeg" alt="image1">
-                    <img src="assests/images/food3.jpeg" alt="image2">
-                    <img src="assests/images/agusie stew.jpg" alt="image3">
-                    <img src="assests/images/image13.jpg" alt="image4">
-                    <img src="assests/images/food6.jpeg" alt="image5">
-                    <img src="assests/images/image6.jpg" alt="image6">
-                    <img src="assests/images/food.jpeg" alt="image7">
-                    <img src="assests/images/food8.jpeg" alt="image8">
-                    <img src="assests/images/image5.jpg" alt="image9">
-                    <img src="assests/images/image10.jpg" alt="image10">
-                    <img src="assests/images/image.jpg" alt="image11">
-                    <img src="assests/images/image4.jpg" alt="image12">
-                    <img src="assests/images/image9.jpg" alt="image10">
-                    <img src="assests/images/image2.jpg" alt="image10">
-                    <img src="assests/images/gob3.jpg" alt="image10">
+                    <a href="recipe.php"><img src="assests/images/food9.jpeg" alt="image1"></a>
+                    <a href="recipe.php"><img src="assests/images/food3.jpeg" alt="image2"></a>
+                    <a href="recipe.php"><img src="assests/images/agusie stew.jpg" alt="image3"></a>
+                    <a href="recipe.php"><img src="assests/images/image13.jpg" alt="image4"></a>
+                    <a href="recipe.php"><img src="assests/images/food6.jpeg" alt="image5"></a>
+                    <a href="recipe.php"><img src="assests/images/image6.jpg" alt="image6"></a>
+                    <a href="recipe.php"><img src="assests/images/food.jpeg" alt="image7"></a>
+                    <a href="recipe.php"><img src="assests/images/food8.jpeg" alt="image8"></a>
+                    <a href="recipe.php"><img src="assests/images/image5.jpg" alt="image9"></a>
+                    <a href="recipe.php"><img src="assests/images/image10.jpg" alt="image10"></a>
+                    <a href="recipe.php"><img src="assests/images/image.jpg" alt="image11"></a>
+                    <a href="recipe.php"><img src="assests/images/image4.jpg" alt="image12"></a>
+                    <a href="recipe.php"><img src="assests/images/image9.jpg" alt="image10"></a>
+                    <a href="recipe.php"><img src="assests/images/image2.jpg" alt="image10"></a>
+                    <a href="recipe.php"><img src="assests/images/gob3.jpg" alt="image10"></a>
                 </div>
                 </div>
+           </section>
+
+
+        <div class="search-container">
+        <div class="box">
+                <div class="search">
+               
+               <div class="search-recipes">
+                
+                <h3> Search All  Recipes</h3>
+                <form class="recipes">
+              <input type="text" placeholder="Enter keywords...">
+               <button type="submit">Search</button>
+            </form>
+          </div>
+         </div>
+       </div>
+
+       <div class="box">
+         <div class="newsletter">
+         <h3>Subscribe for Our Newsletter</h3>
+         <form class= "news-letter">
+        <input type="email" id="email" name="email" placeholder="Your email address" required>
+        <button type="submit">Subscribe</button>
+    </form>
+    </div>
+   </div>
+   </div>
 
             
 
             <div class=" middle">
-                <h2><a href="chef.php">Explore our Chef </a></h2>
+                <h2><a href="chef-profile.php">Explore our Chef </a></h2>
             </div>
             
            <div class="chef-container">

@@ -2,12 +2,13 @@
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
   $username = $_POST["username"];
+  $first_name = $_POST["first_name"];
+  $last_name = $_POST["last_name"];
   $email = $_POST["email"];
   $password = $_POST["password"];
-
   try {
     
-    require_once "dbh.inc.php";
+    require_once "../utils/dbh.inc.php";
     require_once "signup_model.inc.php";
     require_once "signup_controller.inc.php";
 
@@ -15,7 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
       // Create Errors array
     $errors = [];
 
-    if (is_input_empty($username, $email, $password)) {
+    if (is_input_empty($username,$first_name, $last_name, $email, $password)){
       $errors["empty_input"] = "Fill in all fields!";
     }
 
@@ -33,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 
     // Start session
-    require_once 'config_session.inc.php'; // Because I created a safer way to start a session in this required file.
+    require_once '../utils/config_session.inc.php'; // Because I created a safer way to start a session in this required file.
     // Check errors array
     if ($errors) {
       $_SESSION["signup_errors"] = $errors;
@@ -45,13 +46,17 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
       $_SESSION["signup_data"] = $signupDetails;
 
-      header("Location: ../login.php");
+      header("Location: ../../../../login.php");
       die();
     }
 
     // Create user on signup
-    create_user($pdo, $username, $email, $password);
-    header("Location: ../signup.php?signup=success");
+    create_user($pdo, $username,$first_name,  $last_name, $email, $password );
+
+    $_SESSION['signup_success'] == true;
+
+    // header("Location: ../signup.php?signup=success");
+    header("Location: ../../../../login.php");
     $pdo = null;
     $statement = null;
     die();
@@ -60,7 +65,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     die("Query failed: " . $e->getMessage());
   }
 } else {
-  header("Location: ../profile.php");
+  header("Location: ../../../../profile.php");
   die();
 }
 

@@ -3,7 +3,7 @@
 declare(strict_types= 1);
 
 // Validate that all field are not empty
-function is_input_empty(string $username, string $email, string $password) {
+function is_input_empty(string $username,string $first_name, string $last_name, string $email, string $password) {
   if (empty($username) || empty($email) || empty($password)) {
     return true;
   } else {
@@ -43,8 +43,8 @@ function is_email_registered(object $pdo, string $email) {
 
 
 //////////////////////////////// User actions /////////////////////////////////////////
-function create_user(object $pdo, string $username, string $email, string $password) {
+function create_user(object $pdo, string $username, string $first_name, string $last_name, string $email, string $password) {
   // connect to the model to create user
 
-  set_user($pdo, $username, $email, $password);
+  set_user($pdo, $username,  $first_name, $last_name, $email, $password);
 }

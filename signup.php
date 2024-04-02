@@ -1,6 +1,6 @@
 <?php 
-require_once "includes/config_session.inc.php";
-require_once "includes/signup_view.inc.php";
+require_once "includes/utils/config_session.inc.php";
+require_once "includes/signup/signup_view.inc.php";
 ?>
 
 
@@ -23,23 +23,11 @@ require_once "includes/signup_view.inc.php";
                 <li><a href="about.php">About Us</a></li>
                 <li><a href="#">Contact Us</a></li>
                 <li><a href="signup.php">Register</a></li>
+                <li><a href="chef.php">Chef</a></li>
             </ul>
             
 
-            <li class="nav-item search">
-                <form action="#" method="get">
-                  <input type="text" placeholder="Search..." name="search">
-                  <button type="submit">Search</button>
-                </form>
-
-            <li class="nav-item dropdown">
-                <a href="#" class="dropbtn">
-                  <img src="assests/images/icon.png" alt="Profile">
-                </a>
-                <div class="dropdown-content">
-                    <a href="manage-profile.php">Edit Profile</a>
-                    <a href="#">Logout</a>
-                  </div>
+           
             </li>
         </div>
     </section>
@@ -48,12 +36,24 @@ require_once "includes/signup_view.inc.php";
     </div>
     <div class=register-container>
         <div class="Login-box">
-            <h2>Please enter your details</h3>
+            <h2>Please Register here</h3>
             <br><br>
-            <form action="includes/signup.inc.php" method="post">
+            <form action="includes/signup/signup.inc.php" method="post">
             <?php 
             signup_inputs();
           ?>
+
+          <style>
+    .signup-input-container {
+        display: flex;
+        align-items: center;
+    }
+
+    .signup-input-container label {
+        margin-right: 20px;
+    }
+</style>
+          
           <button>Sign up</button>
          
                 <p>Do you have an account with us already?</p>
@@ -65,10 +65,7 @@ require_once "includes/signup_view.inc.php";
           check_signup_errors();
         ?>
         </div>
-        <div class=login-image>
-            <img src="https://images.unsplash.com/photo-1542435503-956c469947f6?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D">
-
-        </div>
+        
 
         </div>
 

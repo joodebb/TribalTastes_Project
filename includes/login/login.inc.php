@@ -8,7 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
   try {
     // import model, controller
-    require_once "dbh.inc.php";
+    require_once "../utils/dbh.inc.php";
     require_once "login_model.inc.php";
     require_once "login_controller.inc.php";
 
@@ -34,30 +34,33 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 
     // Start session
-    require_once 'config_session.inc.php'; // Because I created a safer way to start a session in this required file.
-    // Check errors array
-    if ($errors) {
+    require_once '../utils/config_session.inc.php'; //Because I created a safer way to start a session in this required file.
+     // Create an entirely new ID which has the userId attached
+     $newSessionId = session_create_id();
+     $sessionId = $newSessionId . "_" . $result["id"];
+
+     // set session Id to the one we just created
+     session_id($sessionId);
+     session_start();
+
+     // Check errors array
+     if ($errors) {
       $_SESSION["login_errors"] = $errors;
 
-      header("Location: ../login.php");
+      header("Location: ../../../../login.php");
       die();
-    }
+  }
 
-    // Create an entirely new ID which has the userId attached
-    $newSessionId = session_create_id();
-    $sessionId = $newSessionId . "_" . $result["id"];
-
-    // set session Id to the one we just created
-    session_id($sessionId);
 
     // Add userId and username to session
     $_SESSION["user_id"] = $result["id"];
     $_SESSION["username"] = htmlspecialchars($result["username"]);
+    $_SESSION["is_admin"] = $result["is_admin"];
       // Reset session timer since I jsust added user_id and username to session
     $_SESSION["last_regeneration"] = time();
 
     // header("Location: ../login.php?login=success");
-    header("Location: ../recipe.php");
+    header("Location:/chef.php");
 
 
     // Close my Db Connections [Best practice]
@@ -69,7 +72,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
   }
 } else {
   // redirect to login page if the user request isn't right
-  header("Location: ../login.php");
+  header("Location: ../../../../login.php");
   die();
 }
 

@@ -1,19 +1,53 @@
-
 <?php 
 
 // Start session
-
+// Check if session is started already or start session
+if (session_status() !== PHP_SESSION_ACTIVE) {
+    // Start session
+    session_start();
+    }
+    
+// include connection to database
+include("./actions/auth_check.php");
 include("./includes/utils/start_session.php");
+include("./includes/utils/dbh.in.php");
 
 // Check if the user is logged in
 $isLogged = isset($_SESSION['user_id']);
 
+// Check if the user is an admin
+$isAdmin = isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == 1;
+
 // Set link dynamically
 $loginLink = $isLogged ? "" : '<li><a href="../login.php">Login</a></li>';
-$recipeleLink = $isLogged ? '<li><a href="../recipe.php">Recipe</a></li>' : "";
+$recipeLink = $isLogged ? '<li><a href="../recipe.php">Recipe</a></li>' : "";
 $registerLink = $isLogged ? "" : '<li><a href="../signup.php">Register</a></li>';
-$logoutLink = $isLogged ? '<li><a href="../includes/logout.inc.php">Logout</a></li>' : "";
+$logoutLink = $isLogged ? '<li><a href="../includes/logout/logout.inc.php">Logout</a></li>' : "";
+$dashboardLink = $isAdmin ? '<li><a href="../dashboard.php">Dashboard</a></li>' : '';
 ?>
+
+
+<?php 
+session_start();
+include("./actions/auth_check.php");
+include("./includes/utils/dbh.inc.php");
+
+
+try {
+  // Check for user_id
+  if (isset($_SESSION['user_id'])) {
+    // select user from the database
+    $user_id = $_SESSION['user_id'];
+    // To prevent sql injection
+    $statement = $pdo->prepare("SELECT * FROM users WHERE id = ?");
+    $statement->execute([$user_id]);
+    // execute task
+    $user = $statement->fetch(PDO::FETCH_ASSOC);
+
+    // Display user's profile if there is a user or display an error page if there is no user
+    if ($user) {
+      ?>
+      
 
 <!DOCTYPE html>
 <html lang="en">
@@ -22,110 +56,122 @@ $logoutLink = $isLogged ? '<li><a href="../includes/logout.inc.php">Logout</a></
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="assests/css/style.css">
     <link rel="stylesheet" href="assests/css/unsemantic-grid-responsive-tablet.css">
-    <title>Browse Chef</title>
+    <title>Chef</title>
 </head>
 <body>
 
-    <section class="menu">
-        <div class="nav">
-            <div class="logo"><a href="index.php"><img src="assests/images/logo1.png" alt="logo"></a></div>
-            <ul>
-                <li><a href="index.php">Home</a></li>
-                <li><a href="about.php">About Us</a></li>
-                <li><a href="#">Contact Us</a></li>
-                 <?php echo $logoutLink; ?>
-            </ul>
-            
+<section class="menu">
 
-            <li class="nav-item search">
-                <form action="#" method="get">
-                  <input type="text" placeholder="Search..." name="search">
-                  <button type="submit">Search</button>
-                </form>
+<div class="nav">
+    <div class="logo"><a href="index.php"><img src="assests/images/logo1.png" alt="logo"></a></div>
+    <ul>
+        <li><a href="index.php">Home</a></li>
+        <li><a href="about.php">about</a></li>
+        <li><a href="#">Contact Us</a></li>
+        <?php echo $dashboardLink; ?>
+        <?php echo $logoutLink; ?>
+    </ul>
 
-            <li class="nav-item dropdown">
-                <a href="#" class="dropbtn">
-                  <img src="assests/images/icon.png" alt="Profile">
-                </a>
-                <div class="dropdown-content">
-                    <a href="manage-profile.php">Edit Profile</a>
-                  </div>
-            </li>
+</div>
 
-        </div>
+</section>
 
-    </section>
 
-    <div class=" middle-1">
-        <h2><a href="chef.php">Explore The Profiles of our Seasoned Chef </a></h2>
-    </div>
+  <div class="container">
+      <section class="profile">
     
-   <div class="chef-container-1">
-    <div class=" chef-1">
-    <img src="assests/images/chef1.jpeg" alt="Chef 1">
-    <h4>Chef Marcus "SizzleMaster" </h4>
-    <h5> Nationality Mexican</h5>
-<h5> Specialisation: African & American Cuisines</h5>
-    <p>A BBQ aficionado with a knack for infusing global flavors into his 
-       smoked delights.Originating from Texas, Marcus's love for grilling
-       began at family gatherings where he mastered the art of seasoning 
-       and smoking meats</p>
+          <div class="profile-info">
+              <p>Welcome </strong> <?php echo $user['username']; ?></p>
+        
+          </div>
+  </div>
+
+
+  <div class="tab">
+  <button class="tablinks" onclick="openTab(event, 'ViewRecipes')">View  Recipes</button>
+  <button class="tablinks" onclick="openTab(event, 'AddRecipe')">Add Recipe</button>
+  <button class="tablinks" onclick="openTab(event, 'ManageRecipe')">Manage Recipe</button>
 </div>
 
-<div class="chef-1">
-<img src="assests/images/chef2.jpeg" alt="Chef 2">
-<h4>Chef Kwame "SoulfulPalate"</h4>
-<h5> Nationality Ghanaian</h5>
-<h5> Specialisation:Brazilian & Mexican Cuisines</h5>
-<p>Asante - Born and raised in Accra, Ghana, Kwame's cooking style is a celebration
-  of West African flavors with a modern twist. His dishes pay homage to his roots, 
-   incorporating bold spices and fresh, locally sourced ingredients.</p>
+<div id="ViewRecipes" class="tabcontent">
+  <h3>View My Recipes</h3>
+  <!-- List of recipes goes here -->
 </div>
 
-<div class="chef-1">
-<img src="assests/images/image7.jpg" alt="Chef 3">
-<h4>Chef Aisha "FlavorAlchemy"</h4>
-<h5> Nationality Nigerian</h5>
-<h5> Specialisation:African, Thai & French Cuisines</h5>
-<p>A self-taught chef from Nigeria, Aisha's culinary creations are a reflection of her rich 
-    cultural heritage. With a passion for experimenting with exotic spices and herbs, 
-    she crafts dishes that tantalize the taste buds and ignite the senses.</p>
+<div id="AddRecipe" class="tabcontent">
+  <h3>Add Recipe</h3>
+  <form action="/includes/recipe/upload_recipe.php" method="post" enctype="multipart/form-data">
+    <label for="chefName">Recipe id:</label><br>
+    <input type="text" id="recipe_id" name="recipe_id"  value="<?php echo $recipe['recipe_id']; ?>"><br><br>
+
+    <label for="chef id">Chef id:</label>
+    <select input type="text" id="chef_id" name="chef_id" value="<?php echo $recipe['chef_id']; ?>">
+    <option value="">-- Select One --</option>
+    <option value="C421">C421</option>
+    <option value="C231">C231</option>
+    <option value="C581">C581</option>
+    <option value="C294">C294</option>
+    <option value="C174">C174</option>
+    <option value="C325">C325</option>
+    </select><br>
+
+    <label for="name">Recipe Name:</label><br>
+    <input type="text" id="name" name="name" value="<?php echo $recipe['name']; ?>"><br>
+
+    <label for="description">Description:</label><br>
+    <textarea id="description" name="description" cols="30" rows="10" ></textarea>
+    <br><br>
+
+    <label for="location">Location:</label>
+    <select  input type ="text" id="location" name="location" value="<?php echo $recipe['location']; ?>"><br>
+    <option value="">-- Select One --</option>
+    <option value="African">African</option>
+    <option value="Europe">Europe</option>
+    <option value="Asia">Asia</option>
+    <option value="Middle-East">Middle East</option>
+    <option value="North-America">North America</option>
+    <option value="South-America">South Ameica</option>
+    </select>
+    <br><br>
+
+    <label for="dietary">Dietary:</label>
+    <select input type="text" id="dietary" name="dietary" value="<?php echo $recipe['dietary']; ?>"><br>
+    <option value="">-- Select One --</option>
+    <option value="">-- Vegan --</option>
+    <option value="">-- Non-Vegan --</option>
+    </select><br>
+
+    <label for="photo">photo:</label>
+     <!-- <input type="text" id="photo" name="photo" value="<?php echo $recipe['photo']; ?>"><br><br> -->
+    <input id="photo" name="photo" type="file"><br>
+    <input type="submit" value="Submit">
+  </form>
 </div>
 
-<div class="chef-1">
-<img src="assests/images/image8.jpg" alt="Chef 4">
-<h4>Chef Fatima "SavorySafari"</h4>
-<h5> Nationality Moroccan</h5>
-<h5> Specialisation:Mediterranean & Middle East Cuisines</h5>
-<p>Drawing inspiration from her travels across Africa, Fatima's cooking reflects a diverse
-     tapestry of flavors and ingredients. From Moroccan tagines to South African braais, 
-     her dishes invite diners on a flavorful journey through the continent's culinary landscape..</p>
+<div id="ManageRecipe" class="tabcontent">
+  <h3>Manage Recipe</h3>
+  <!-- List of recipes with edit and delete options goes here -->
 </div>
 
-<div class="chef-1">
-<img src="assests/images/chef5.jpeg" alt="Chef 5">
-<h4>Chef Sophia "GourmetGoddess"</h4>
-<h5> Nationality France</h5>
-<h5> Specialisation:French & European Cusines </h5>
-<p>With a background in French cuisine, Sophia brings elegance and sophistication to her dishes. 
-    Trained in Paris, she expertly combines classic techniques with innovative flavors, creating 
-    culinary masterpieces that are both beautiful and delicious..</p>
-</div>
-
-<div class="chef-1">
-<img src="assests/images/chef6.jpeg" alt="Chef 6">
-<h4>Chef Isabella "SpiceWhisperer"</h4>
-<h5> Nationality Brazil</h5>
-<h5> Specialisation Brazilian & Mexican Cuisines:</h5>
-<p> Hailing from Brazil, Isabella brings a vibrant fusion of Latin American and Mediterranean cuisines 
-    to the table.Her culinary journey started in her grandmother's kitchen, where she learned to 
-    blend spices and create unforgettable dishes.</p>
-</div>
-
-</div>
-
-
-    <footer>
+<script>
+  function openTab(evt, tabName) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+      tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(tabName).style.display = "block";
+    evt.currentTarget.className += " active";
+  }
+</script>
+  
+  
+    
+  <footer>
         <div class="footer-container">
             <div class="social-media"></div>
             <h4><a href="#">Contact Us</a></h4>
@@ -149,6 +195,8 @@ $logoutLink = $isLogged ? '<li><a href="../includes/logout.inc.php">Logout</a></
                 </ul>
             </div>
 
+
+
             <div class="footer-grid-item">
                 <ul>
                     <li><a href="#">Cookie Policy</a></li>
@@ -162,5 +210,19 @@ $logoutLink = $isLogged ? '<li><a href="../includes/logout.inc.php">Logout</a></
            
 
      </footer>
+    
 </body>
 </html>
+
+<?php
+    } else {
+      echo "<h1>User not found</h1>";
+    }
+  } else {
+    header("Location: login.php");
+  }
+} catch (PDOException $e) {
+  echo "Connection failed: " . $e->getMessage();
+}
+
+?>

@@ -5,7 +5,7 @@ $dbusername = "joodebb";
 $dbpassword = "joodebb";
 
 try {
-  $pdo = new PDO($dsn, $dbusername, $dbpassword);
+  $pdo = new PDO($dsn, $dbusername, $dbpassword, );
   $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
   // // Create Database
@@ -21,20 +21,39 @@ try {
   $sql = "CREATE TABLE IF NOT EXISTS users (
       id INT(11) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
       username VARCHAR(30) NOT NULL,
-      email VARCHAR(100) NOT NULL,
-      password VARCHAR(255) NOT NULL,
       first_name VARCHAR(255),
       last_name VARCHAR(255),
-      date_of_birth DATE,
-      nationality VARCHAR(255),
-      gender VARCHAR(10),
+      email VARCHAR(100) NOT NULL,
+      password VARCHAR(255) NOT NULL,
+      is_admin BOOLEAN DEFAULT FALSE,
       UNIQUE (username),
       UNIQUE (email),
       created_at DATETIME DEFAULT CURRENT_TIMESTAMP
   )";
 
 
+
+$sql2 = "CREATE TABLE IF NOT EXISTS chef (
+  chef_id VARCHAR(20) NOT NULL  PRIMARY KEY,
+  id INT(11) UNSIGNED NOT NULL,
+  specialisation VARCHAR(255),
+  FOREIGN KEY (id) REFERENCES users(id)
+)";
+
+$sql3 = "CREATE TABLE IF NOT EXISTS recipe (
+  recipe_id VARCHAR(20) NOT NULL  PRIMARY KEY,
+  chef_id VARCHAR(20) NOT NULL,
+  name VARCHAR(255),
+  description TEXT,
+  location VARCHAR(255),
+  dietary VARCHAR(50),
+  photo VARCHAR(255),
+  FOREIGN KEY (chef_id) REFERENCES chef(chef_id)
+)";
+
   $pdo->exec($sql);
+  $pdo->exec($sql2);
+  $pdo->exec($sql3);
 
   
 // echo "Connected Successfully";
