@@ -101,20 +101,6 @@ try {
 <div id="AddRecipe" class="tabcontent">
   <h3>Add Recipe</h3>
   <form action="/includes/recipe/upload_recipe.php" method="post" enctype="multipart/form-data">
-    <label for="chefName">Recipe id:</label><br>
-    <input type="text" id="recipe_id" name="recipe_id"  value="<?php echo $recipe['recipe_id']; ?>"><br><br>
-
-    <label for="chef id">Chef id:</label>
-    <select input type="text" id="chef_id" name="chef_id" value="<?php echo $recipe['chef_id']; ?>">
-    <option value="">-- Select One --</option>
-    <option value="C421">C421</option>
-    <option value="C231">C231</option>
-    <option value="C581">C581</option>
-    <option value="C294">C294</option>
-    <option value="C174">C174</option>
-    <option value="C325">C325</option>
-    </select><br>
-
     <label for="name">Recipe Name:</label><br>
     <input type="text" id="name" name="name" value="<?php echo $recipe['name']; ?>"><br>
 

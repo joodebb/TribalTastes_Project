@@ -13,11 +13,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     include("../utils/dbh.inc.php");
     include("../utils/auth_check.php");
     $recipe_id = $_POST["recipe_id"];
-    $chef_id = $_POST["chef_id"];
+    $chef_id = $_SESSION['user_id'];
     $name = $_POST["name"];
     $description = $_POST["description"];
     $location = $_POST["location"];
     $dietary = $_POST["dietary"];
+
+
+    // GET ID OF CURRENT USER (LOGGED IN USER)
+    // $chef_id = $_SESSION["user_id"];
     // $photo = $_POST["photo"]; // Remove this line
 
      // Handle file type
@@ -58,10 +62,23 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
  
     // Write the SQL Script to update to database
 
-    $sql3 = "UPDATE recipe SET recipe_id = ?, chef_id = ?, name = ?, description = ?, location = ?, dietary = ?,  photo = ? WHERE id = ?";
+    ###
 
-    $result = $pdo->prepare($sql3);
-    $result->execute([$recipe_id, $chef_id, $name, $description, $location, $dietary, $photo,['recipe_id']]);
+    $sql3 = "INSERT INTO recipe (chef_id, name, description, location, dietary, photo)  
+         VALUES (:chef_id, :name, :description, :location, :dietary, :photo)";
+
+    $stmt = $pdo->prepare($sql3);
+
+    // Bind parameters
+    $stmt->bindParam(':chef_id', $chef_id, PDO::PARAM_INT);
+    $stmt->bindParam(':name', $name, PDO::PARAM_STR);
+    $stmt->bindParam(':description', $description, PDO::PARAM_STR);
+    $stmt->bindParam(':location', $location, PDO::PARAM_STR);
+    $stmt->bindParam(':dietary', $dietary, PDO::PARAM_STR);
+    $stmt->bindParam(':photo', $photo, PDO::PARAM_STR);
+
+    $stmt->execute();
+
 
     header("Location: ../../../../chef.php");
     exit; // Ensure no further code execution after redirection

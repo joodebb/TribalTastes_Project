@@ -19,7 +19,7 @@ try {
 
   // Create database tables if they don't exist
   $sql = "CREATE TABLE IF NOT EXISTS users (
-      id INT(11) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+      id INT AUTO_INCREMENT PRIMARY KEY,
       username VARCHAR(30) NOT NULL,
       first_name VARCHAR(255),
       last_name VARCHAR(255),
@@ -33,27 +33,29 @@ try {
 
 
 
-$sql2 = "CREATE TABLE IF NOT EXISTS chef (
+/*$sql2 = "CREATE TABLE IF NOT EXISTS chef (
   chef_id VARCHAR(20) NOT NULL  PRIMARY KEY,
   id INT(11) UNSIGNED NOT NULL,
   specialisation VARCHAR(255),
   FOREIGN KEY (id) REFERENCES users(id)
 )";
+*/
 
-$sql3 = "CREATE TABLE IF NOT EXISTS recipe (
-  recipe_id VARCHAR(20) NOT NULL  PRIMARY KEY,
-  chef_id VARCHAR(20) NOT NULL,
+
+$sql2 = "CREATE TABLE IF NOT EXISTS recipe (
+  recipe_id INT  AUTO_INCREMENT PRIMARY KEY,
+  chef_id INT(11)  NOT NULL ,
   name VARCHAR(255),
   description TEXT,
   location VARCHAR(255),
   dietary VARCHAR(50),
   photo VARCHAR(255),
-  FOREIGN KEY (chef_id) REFERENCES chef(chef_id)
+  FOREIGN KEY (chef_id) REFERENCES users(id)
 )";
 
   $pdo->exec($sql);
   $pdo->exec($sql2);
-  $pdo->exec($sql3);
+ 
 
   
 // echo "Connected Successfully";
