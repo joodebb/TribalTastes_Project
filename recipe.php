@@ -1,5 +1,23 @@
 
 
+<?php
+
+include "./includes/utils/start_session.php";
+include "./includes/utils/dbh.inc.php";
+
+if (isset($_GET['name'])) {
+    $recipe_name = $_GET['name'];
+
+    // Prepare and execute the SQL query to fetch the recipe
+    $sql_recipe = $pdo->prepare("SELECT * FROM recipe WHERE name = ?");
+    $sql_recipe->execute([$recipe_name]);
+    $recipe = $sql_recipe->fetch(PDO::FETCH_ASSOC);
+
+    if (!$recipe) {
+        die("Recipe not Found");
+    }
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -20,7 +38,6 @@
                 <li><a href="about.php">about</a></li>
                 <li><a href="#">Contact Us</a></li>
             </ul>
-
         </div>
 
     </section>
@@ -29,60 +46,11 @@
 <div class="content">
     <h1><a href="#">Explore our  recipes</a></h1>
 </div>
-<div class="filter-container">
-    <h2>Filter All Recipes</h2>
-    <form id="filter-form">
 
-        <label for="location">Location</label>
-        <select name="location" id="location">
-            <option value="">Africa</option>
-            <option value="">Asia</option>
-            <option value="">Europe</option>
-            <option value="">North America</option>
-            <option value="">South America</option>
-        </select>
-
-        <label for="Chef">Chef</label>
-        <select name="name" id="name">
-            <option value="">Chef Marcus</option>
-            <option value="">Chef Kwame</option>
-            <option value="">Chef Aisha</option>
-            <option value="">Chef Fatima</option>
-            <option value="">Chef Sophia </option>
-            <option value="">Chef Isabella </option>
-        </select>
-        
-        <label for="category">Category</label>
-        <select name="category" id="category">
-            <option value="">Ghanaian cuisine</option>
-            <option value="">Nigerian cuisine</option>
-            <option value="">North American Cuisine</option>
-            <option value="">Caribbean cuisine</option>
-            <option value=""> French cuisine </option>
-            <option value="">British  cuisine </option>
-            <option value="">Asian cuisine</option>
-            <option value="">Middle East cuisine</option>
-        </select>
-        
-        <label for="cooking-time">cooking-time</label>
-        <select name="time" id="time">
-            <option value=""> 180 minutes</option>
-            <option value=""> 120 minutes</option>
-            <option value=""> 60 minutes </option>
-            <option value=""> 30 minutes</option>
-            <option value=""> 15 minutes</option>
-        </select>
-        
-      
-    </form>
-
-</div>
-
-<div class="recipes-container">
-    <!-- Display filtered recipes here -->
-</div>
-
-
+    <h1><?php echo  $recipe['name']; ?></h1>
+    <img src='./uploads/<?php echo $recipe['photo'] ?>' alt='image1'>";
+    <p><?php echo  $recipe['description']; ?></p>
+   
 
      <footer>
         <div class="footer-container">
@@ -121,6 +89,7 @@
             <h4 >TM & Copyright 2024 @ TribalTastes. All rights reserved </h4>
             </div>
            
+
 
      </footer>
         

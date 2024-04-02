@@ -1,13 +1,12 @@
-
 <?php 
 
-// Check if session is started already or start session
-if (session_status() !== PHP_SESSION_ACTIVE) {
-// Start session
-session_start();
+// Start session if not already started
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
 }
 
-include("./includes/utils/start_session.php");
+// Include necessary files
+include "./includes/utils/start_session.php";
 
 // Check if the user is logged in
 $isLogged = isset($_SESSION['user_id']);
@@ -15,12 +14,40 @@ $isLogged = isset($_SESSION['user_id']);
 // Check if the user is an admin
 $isAdmin = isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == 1;
 
-// Set link dynamically
+// Set dynamic links
 $loginLink = $isLogged ? "" : '<li><a href="../login.php">Login</a></li>';
 $recipeLink = $isLogged ? '<li><a href="../recipe.php">Recipe</a></li>' : "";
 $registerLink = $isLogged ? "" : '<li><a href="../signup.php">Register</a></li>';
 $logoutLink = $isLogged ? '<li><a href="../includes/logout/logout.inc.php">Logout</a></li>' : "";
 $dashboardLink = $isAdmin ? '<li><a href="../dashboard.php">Dashboard</a></li>' : '';
+
+// Include database connection
+include "./includes/utils/dbh.inc.php";
+
+
+try {
+    // Check if $pdo is a valid object
+    if (!$pdo instanceof PDO) {
+        throw new Exception("Database connection is not valid.");
+    }
+
+    // Fetch recipes from database
+    $fetch_all_recipes_sql = "SELECT * FROM recipe";
+    $fetch_all_recipes_stmt = $pdo->prepare($fetch_all_recipes_sql);
+    $fetch_all_recipes_stmt->execute();
+    $recipes = $fetch_all_recipes_stmt->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    // Log database error
+    error_log("Database error: " . $e->getMessage());
+    echo "Oops! Something went wrong. Please try again later.";
+} catch (Exception $e) {
+    // Log other errors
+    error_log("Error: " . $e->getMessage());
+    echo "Oops! Something went wrong. Please try again later.";
+} finally {
+    // Close database connection
+    $pdo = null;
+}
 ?>
 
 <!DOCTYPE html>
@@ -58,25 +85,17 @@ $dashboardLink = $isAdmin ? '<li><a href="../dashboard.php">Dashboard</a></li>' 
     <section class="images">
             <div class="content">
                 <h1><a href="recipe.php">Browse Trending Recipes.....</a></h1> 
+                <?php // print_r($recipes) ?>
             </div>
             
                 <div class="container">
                     <div class="food-images">
-                    <a href="recipe.php"><img src="assests/images/food9.jpeg" alt="image1"></a>
-                    <a href="recipe.php"><img src="assests/images/food3.jpeg" alt="image2"></a>
-                    <a href="recipe.php"><img src="assests/images/agusie stew.jpg" alt="image3"></a>
-                    <a href="recipe.php"><img src="assests/images/image13.jpg" alt="image4"></a>
-                    <a href="recipe.php"><img src="assests/images/food6.jpeg" alt="image5"></a>
-                    <a href="recipe.php"><img src="assests/images/image6.jpg" alt="image6"></a>
-                    <a href="recipe.php"><img src="assests/images/food.jpeg" alt="image7"></a>
-                    <a href="recipe.php"><img src="assests/images/food8.jpeg" alt="image8"></a>
-                    <a href="recipe.php"><img src="assests/images/image5.jpg" alt="image9"></a>
-                    <a href="recipe.php"><img src="assests/images/image10.jpg" alt="image10"></a>
-                    <a href="recipe.php"><img src="assests/images/image.jpg" alt="image11"></a>
-                    <a href="recipe.php"><img src="assests/images/image4.jpg" alt="image12"></a>
-                    <a href="recipe.php"><img src="assests/images/image9.jpg" alt="image10"></a>
-                    <a href="recipe.php"><img src="assests/images/image2.jpg" alt="image10"></a>
-                    <a href="recipe.php"><img src="assests/images/gob3.jpg" alt="image10"></a>
+                        <?php 
+                            // Loop through recipes and display them
+                            foreach($recipes as $recipe) {
+                               echo "<a href='recipe.php?name={$recipe["name"]}'><img src='./uploads/{$recipe["photo"]}' alt='image1'></a>";
+                            }                        
+                        ?>
                 </div>
                 </div>
            </section>
