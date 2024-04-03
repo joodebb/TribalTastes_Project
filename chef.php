@@ -103,9 +103,14 @@ try {
   <form action="/includes/recipe/upload_recipe.php" method="post" enctype="multipart/form-data">
     <label for="name">Recipe Name:</label><br>
     <input type="text" id="name" name="name" value="<?php echo $recipe['name']; ?>"><br>
+    
+    <label for="ingredient">Ingredient:</label><br>
+    <textarea id="ingredient" name="ingredient" cols="30" rows="10" ></textarea>
+    <br><br>
+
 
     <label for="description">Description:</label><br>
-    <textarea id="description" name="description" cols="30" rows="10" ></textarea>
+    <textarea id="description" name="description" cols="50" rows="10" ></textarea>
     <br><br>
 
     <label for="location">Location:</label>
@@ -123,8 +128,8 @@ try {
     <label for="dietary">Dietary:</label>
     <select input type="text" id="dietary" name="dietary" value="<?php echo $recipe['dietary']; ?>"><br>
     <option value="">-- Select One --</option>
-    <option value="">-- Vegan --</option>
-    <option value="">-- Non-Vegan --</option>
+    <option value="Vegan">-- Vegan --</option>
+    <option value="Non-Vegan">-- Non-Vegan --</option>
     </select><br>
 
     <label for="photo">photo:</label>

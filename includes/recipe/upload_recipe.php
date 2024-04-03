@@ -15,6 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $recipe_id = $_POST["recipe_id"];
     $chef_id = $_SESSION['user_id'];
     $name = $_POST["name"];
+    $ingredient = $_POST["ingredient"];
     $description = $_POST["description"];
     $location = $_POST["location"];
     $dietary = $_POST["dietary"];
@@ -64,14 +65,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     ###
 
-    $sql3 = "INSERT INTO recipe (chef_id, name, description, location, dietary, photo)  
-         VALUES (:chef_id, :name, :description, :location, :dietary, :photo)";
+    $sql3 = "INSERT INTO recipe (chef_id, name, ingredient, description, location, dietary, photo)  
+         VALUES (:chef_id, :name, :ingredient,  :description, :location, :dietary, :photo)";
 
     $stmt = $pdo->prepare($sql3);
 
     // Bind parameters
     $stmt->bindParam(':chef_id', $chef_id, PDO::PARAM_INT);
     $stmt->bindParam(':name', $name, PDO::PARAM_STR);
+    $stmt->bindParam(':ingredient', $ingredient, PDO::PARAM_STR);
     $stmt->bindParam(':description', $description, PDO::PARAM_STR);
     $stmt->bindParam(':location', $location, PDO::PARAM_STR);
     $stmt->bindParam(':dietary', $dietary, PDO::PARAM_STR);

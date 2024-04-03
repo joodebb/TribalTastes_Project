@@ -522,28 +522,34 @@ color:#dc116f ;
 }
 
 /*Browse Recipe Page*/
-
-.filter-container{
-  
-  padding: 20px;
-}
-
-.filter-container h2{
+.view h1{
   text-align: center;
-  padding-bottom: 10px;
+}
+.content {
+  max-width: 900px;
+  margin-left: 300px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  padding: 50px;
+  
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-image: url(https://images.pexels.com/photos/301717/pexels-photo-301717.jpeg?auto=compress&cs=tinysrgb&w=600);
 }
 
-.filter-container form label {
-  display: block;
-  margin-bottom: 5px;
+.end h2{
+ text-align: center;
+
 }
 
-.filter-container form select {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
-    border: 1px solid #dc116f;
-    border-radius: 4px;
+.mylist img {
+  
+  height: 400px;
+  width: 400px;
+  margin-left: 150px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
 

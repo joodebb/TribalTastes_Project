@@ -82,9 +82,12 @@ try {
         </div>
 
     </section>
+    <div class="end">
+    <h2>Browse Trending Recipes.....</h2> 
+  </div>
     <section class="images">
-            <div class="content">
-                <h1><a href="recipe.php">Browse Trending Recipes.....</a></h1> 
+            <div class="content1">
+               
                 <?php // print_r($recipes) ?>
             </div>
             
@@ -93,7 +96,10 @@ try {
                         <?php 
                             // Loop through recipes and display them
                             foreach($recipes as $recipe) {
+                                echo "<div>";
                                echo "<a href='recipe.php?name={$recipe["name"]}'><img src='./uploads/{$recipe["photo"]}' alt='image1'></a>";
+                               echo "<p>{$recipe["name"]}</p>";
+                               echo "</div>";
                             }                        
                         ?>
                 </div>

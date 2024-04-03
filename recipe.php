@@ -1,5 +1,4 @@
 
-
 <?php
 
 include "./includes/utils/start_session.php";
@@ -42,15 +41,24 @@ if (isset($_GET['name'])) {
 
     </section>
 
+    <div class="view">
+    <h1>View Details of Recipe Below</h1>
+ </div>
 
 <div class="content">
-    <h1><a href="#">Explore our  recipes</a></h1>
-</div>
-
+<div class="mylist">
     <h1><?php echo  $recipe['name']; ?></h1>
-    <img src='./uploads/<?php echo $recipe['photo'] ?>' alt='image1'>";
+    <img src='./uploads/<?php echo $recipe['photo'] ?>' alt='image1'>
+    <h1>Ingredients</h1>
+    <p><?php echo  $recipe['ingredient']; ?></p>
+    <h2>Step by Step Instructions</h2>
     <p><?php echo  $recipe['description']; ?></p>
-   
+    <h2>Cuisine Type</h2>
+    <p><?php echo  $recipe['location']; ?></p>
+    <h2>Allergen Information</h2>
+    <p><?php echo  $recipe['dietary']; ?></p>
+</div>
+</div>
 
      <footer>
         <div class="footer-container">
