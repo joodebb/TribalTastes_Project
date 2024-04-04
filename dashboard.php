@@ -48,20 +48,7 @@ try {
               
             </ul>
             
-            <li class="nav-item search">
-                <form action="#" method="get">
-                  <input type="text" placeholder="Search..." name="search">
-                  <button type="submit">Search</button>
-                </form>
-
-            <li class="nav-item dropdown">
-                <a href="#" class="dropbtn">
-                  <img src="assests/images/icon.png" alt="Profile">
-                </a>
-                <div class="dropdown-content">
-                    <a href="manage-profile.php">Edit Profile</a>
-                  </div>
-            </li>
+            
         </section>
     
             <?php include("./components/dashboard-component.php"); ?>

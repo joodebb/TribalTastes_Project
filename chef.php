@@ -81,7 +81,7 @@ try {
       <section class="profile">
     
           <div class="profile-info">
-              <p>Welcome </strong> <?php echo $user['username']; ?></p>
+              <p>Welcome  Chef </strong> <?php echo $user['first_name']; ?></p>
         
           </div>
   </div>
@@ -95,7 +95,34 @@ try {
 
 <div id="ViewRecipes" class="tabcontent">
   <h3>View My Recipes</h3>
-  <!-- List of recipes goes here -->
+  <?php
+  try {
+    // Check for user_id
+    if (isset($_SESSION['user_id'])) {
+        // Select recipes' name and photo from the database for the logged-in user
+        $user_id = $_SESSION['user_id'];
+        $statement = $pdo->prepare("SELECT name, photo FROM recipe WHERE chef_id = ?");
+        $statement->execute([$user_id]);
+        $recipes = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        if ($recipes) {
+            // Display each recipe's name and picture
+            foreach ($recipes as $recipe) {
+                // Output recipe name and photo
+                echo "<h2>{$recipe['name']}</h2>";
+                echo "<img src='../../uploads/{$recipe['photo']}' alt='{$recipe['name']}'>";
+                echo "<hr>";
+            }
+        } else {
+            echo "<p>No recipes found for this user.</p>";
+        }
+    } else {
+        header("Location: login.php");
+    }
+  } catch (PDOException $e) {
+    echo "Connection failed: " . $e->getMessage();
+  }
+  ?>
 </div>
 
 <div id="AddRecipe" class="tabcontent">
@@ -141,7 +168,40 @@ try {
 
 <div id="ManageRecipe" class="tabcontent">
   <h3>Manage Recipe</h3>
-  <!-- List of recipes with edit and delete options goes here -->
+  <?php
+  try {
+    // Check for user_id
+    if (isset($_SESSION['user_id'])) {
+        // Select recipes' name and photo from the database for the logged-in user
+        $user_id = $_SESSION['user_id'];
+        $statement = $pdo->prepare("SELECT recipe_id, name, photo FROM recipe WHERE chef_id = ?");
+        $statement->execute([$user_id]);
+        $recipes = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        if ($recipes) {
+            // Display each recipe with edit options
+            foreach ($recipes as $recipe) {
+                echo "<form action='/includes/recipe/upload_recipe.php' method='post' enctype='multipart/form-data'>";
+                echo "<input type='hidden' name='recipe_id' value='{$recipe['recipe_id']}'>"; // Hidden field for recipe ID
+                echo "<label for='photo'>Photo:</label>";
+                echo "<img src='../../uploads/{$recipe['photo']}' alt='{$recipe['name']}'><br>";
+                echo "<input type='file' id='photo' name='photo'><br>"; // Photo upload input
+                echo "<label for='name'>Name:</label>";
+                echo "<input type='text' id='name' name='name' value='{$recipe['name']}'><br><br>"; // Name input
+                echo "<input type='submit' value='Save'><br><br>"; // Save button
+                echo "</form>";
+                echo "<hr>";
+            }
+        } else {
+            echo "<p>No recipes found for this user.</p>";
+        }
+    } else {
+        header("Location: login.php");
+    }
+  } catch (PDOException $e) {
+    echo "Connection failed: " . $e->getMessage();
+  }
+  ?>
 </div>
 
 <script>

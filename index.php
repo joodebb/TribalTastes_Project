@@ -48,6 +48,11 @@ try {
     // Close database connection
     $pdo = null;
 }
+
+
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -115,8 +120,29 @@ try {
                 
                 <h3> Search All  Recipes</h3>
                 <form class="recipes">
-              <input type="text" placeholder="Enter keywords...">
+             <p>Enter recipe name here</P><br> <input type="text" placeholder="Enter keywords...">
                <button type="submit">Search</button>
+               <br>
+               
+
+               <h3>Or Filter Below</h3>
+        <label for="location">Cuisine Location:</label>
+       <select id="location">
+        <option value="">All</option>
+        <option value="Africa">Africa</option>
+        <option value="Europe">Europe</option>
+        <option value="Asia">Asia</option>
+        <option value="Middle-East">Middle East</option>
+        <option value="America">North America</option>
+        <option value="Asia">South America</option>
+       </select>
+       <label for="dietary">Dietary Preference:</label>
+        <select id="dietary">
+        <option value="">All</option>
+        <option value="Vegan">Vegan</option>
+        <option value="Non-Vegan">Non-Vegan</option>
+        <button type="submit">submit</button>
+        </select>
             </form>
           </div>
          </div>
@@ -124,8 +150,11 @@ try {
 
        <div class="box">
          <div class="newsletter">
-         <h3>Subscribe for Our Newsletter</h3>
+         <h3>Subscribe</h3>
+         <p>Sign up for EMAIL UPDATES<br>  get a free ebook with our top 25 recipes</p><br>
          <form class= "news-letter">
+         <input type="first_name" id="first_name" name="first_name" placeholder="First Name" required>
+         <br><br>
         <input type="email" id="email" name="email" placeholder="Your email address" required>
         <button type="submit">Subscribe</button>
     </form>
