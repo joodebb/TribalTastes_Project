@@ -2,7 +2,6 @@
 
 // Check for session start
 session_start();
-
 include("./includes/utils/dbh.inc.php");
 
 // Check if the user is logged in
@@ -40,20 +39,21 @@ try {
             <ul>
                 <li><a href="index.php">Home</a></li>
                 <li><a href="about.php">About Us</a></li>
-                <li><a href="#">Contact Us</a></li>
+                <li><a href="contact.php">Contact Us</a></li>
                 <li><a href="signup.php">Register</a></li>
                 <li><a href="login.php">Login</a></li>
                 <li><a href="chef.php">Chef</a></li>
                 <?php echo $logoutLink; ?>
-              
-            </ul>
-            
-            
+        </ul>  
         </section>
+        <div class="panel">
+        <h1>Admin Dashboard</h1>
+       
     
-            <?php include("./components/dashboard-component.php"); ?>
+        <?php include("./Components/dashboard-component.php"); ?>
+       <?php include("delete.php");?>
 
-
+        </div>
 <footer>
     <div class="footer-container">
         <div class="social-media"></div>

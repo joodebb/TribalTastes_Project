@@ -1,17 +1,41 @@
-<?php 
-require_once "includes/utils/config_session.inc.php";
-require_once "includes/signup/signup_view.inc.php";
-?>
+<?php  
 
+// Start session if not already started
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+// Include necessary files
+include "./includes/utils/start_session.php";
+
+// Check if the user is logged in
+$isLogged = isset($_SESSION['user_id']);
+
+// Check if the user is an admin
+$isAdmin = isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == 1;
+
+// Set dynamic links
+$loginLink = $isLogged ? "" : '<li><a href="../login.php">Login</a></li>';
+$recipeLink = $isLogged ? '<li><a href="../recipe.php">Recipe</a></li>' : "";
+$registerLink = $isLogged ? "" : '<li><a href="../signup.php">Register</a></li>';
+$logoutLink = $isLogged ? '<li><a href="../includes/logout/logout.inc.php">Logout</a></li>' : "";
+$dashboardLink = $isAdmin ? '<li><a href="../dashboard.php">Dashboard</a></li>' : '';
+
+// Include database connection
+include "./includes/utils/dbh.inc.php";
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="assests/css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="assests/css/style.css">
     <link rel="stylesheet" href="assests/css/unsemantic-grid-responsive-tablet.css">
-    <title>TribalTaste/ Signup Page</title>
+  <title>TribalTastes | Reset Password</title>
+  
+  
 </head>
 <body>
 
@@ -23,54 +47,20 @@ require_once "includes/signup/signup_view.inc.php";
                 <li><a href="about.php">About Us</a></li>
                 <li><a href="contact.php">Contact Us</a></li>
                 <li><a href="signup.php">Register</a></li>
-                <li><a href="chef.php">Chef</a></li>
-            </ul>
-            
-
-           
-            </li>
+                <li><a href="login.php">Login</a></li>
+                </ul>  
         </div>
-    </section>
-    <div class=reg>
-    <h1> Welcome to TribalTastes</h1>
-    </div>
-    <div class=register-container>
-        <div class="Login-box">
-            <h2>Please Register here</h3>
-            <br><br>
-            <form action="includes/signup/signup.inc.php" method="post">
-            <?php 
-            signup_inputs();
-          ?>
+</section>
+ 
 
-          <style>
-    .signup-input-container {
-        display: flex;
-        align-items: center;
-    }
-
-    .signup-input-container label {
-        margin-right: 20px;
-    }
-</style>
-          
-          <button>Sign up</button>
-         
-                <p>Do you have an account with us already?</p>
-             </form>
-            
-             <a href="/login.php">Login</a>
-             
-             <?php 
-          check_signup_errors();
-        ?>
-        </div>
-        
-
-        </div>
+  <div style="height: 70vh;">
+    <h1 style="text-align: center">Reset Password</h1>
+  </div>
+  
 
 
-        <footer>
+
+  <footer>
             <div class="footer-container">
                 <div class="social-media"></div>
                 <h4><a href="#">Contact Us</a></h4>
@@ -87,7 +77,7 @@ require_once "includes/signup/signup_view.inc.php";
             <div class="footer-grid">
                 <div class="footer-grid-item">
                     <ul>
-                        <li><a href="about.php">About Us</a></li>
+                        <li><a href="#">About Us</a></li>
                         <li><a href="#">Privacy Policy</a></li>
                         <li><a href="#">Terms of Use</a></li>
                         <li><a href="#">Contact Us</a></li>
@@ -107,10 +97,9 @@ require_once "includes/signup/signup_view.inc.php";
                
 
          </footer>
-
-
-
-
-
 </body>
 </html>
+
+
+
+

@@ -49,6 +49,7 @@ if (isset($_SESSION['user_id'])) {
     <title>TribalTastes | Login Page</title>
 </head>
 <body>
+  
   <main>
   <section class="menu">
         <div class="nav">
@@ -56,7 +57,7 @@ if (isset($_SESSION['user_id'])) {
             <ul>
                 <li><a href="index.php">Home</a></li>
                 <li><a href="about.php">About Us</a></li>
-                <li><a href="#">Contact Us</a></li>
+                <li><a href="contact.php">Contact Us</a></li>
                 <li><a href="signup.php">Register</a></li>
                 <li><a href="login.php">Login</a></li>
                 <li><a href="chef.php">Chef</a></li>
@@ -65,26 +66,31 @@ if (isset($_SESSION['user_id'])) {
               
             </ul>
         </div>
-
     </section>
+    <div class="page">
 
-
-        <h3>Welcome back to TribalTaste</h3>
-        <p>Please enter your details</p>
+        <div class="welcome">
+        <h1>Welcome back to TribalTaste</h1>
+        <h3>Please enter your details</h3>
+    </div class="log">
        <div class="login-container">
         <form action="includes/login/login.inc.php" target="_self" method="post" autocomplete="on">
-          <input type="text" class="input-with-person-icon" name="username" placeholder="Username" size="50" required autofocus><br>
-          <input type="password" class="input-with-password-icon" name="password" placeholder="Password" size="50" required><br>
+          <h4>User Name</h4><br><input type="text" class="input-with-person-icon" name="username" placeholder="" size="50" required autofocus><br><br>
+          <h4>Password</h4><br><input type="password" class="input-with-password-icon" name="password" placeholder="Password" size="50" required><br><br>
           <button>Login</button>
         </form>
-      
+       </div>
+      <div class="forgot">
         <p>
           Are you new here? 
           <a href="/signup.php"> Signup</a>
         </p>
-
+        </div>
+        <div class="forgot1">
         <a href="/forgot-password.php">Forgot Password</a>
-   </div>
+      </div>
+      </div>
+   
         <!-- <form action="/includes/logout.inc.php">
           <button id="logout-btn">logout</button>
         </form> -->
@@ -93,9 +99,11 @@ if (isset($_SESSION['user_id'])) {
           check_login_errors()
         ?>
       </div>
+</div>
 
       <div class="login__content-bg"></div>
     </div>
+</div>
   </main>
 </body>
 

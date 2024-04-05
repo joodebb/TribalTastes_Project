@@ -33,13 +33,7 @@ try {
 
 
 
-/*$sql2 = "CREATE TABLE IF NOT EXISTS chef (
-  chef_id VARCHAR(20) NOT NULL  PRIMARY KEY,
-  id INT(11) UNSIGNED NOT NULL,
-  specialisation VARCHAR(255),
-  FOREIGN KEY (id) REFERENCES users(id)
-)";
-*/
+
 
 
 $sql2 = "CREATE TABLE IF NOT EXISTS recipe (

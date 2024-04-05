@@ -1,44 +1,97 @@
-<?php 
+<?php
+session_start();
 
-try {
+// Include database connection
+include_once 'db_connection.php';
 
-  // SQL to fetch users
-  $fetch_all_users_sql = "SELECT * FROM users";
-  $fetch_all_users_stmt = $pdo->prepare($fetch_all_users_sql);
-  $fetch_all_users_stmt->execute();
-  $users = $fetch_all_users_stmt->fetchAll(PDO::FETCH_ASSOC);
+// Check if the user is logged in and is an admin
+if (isset($_SESSION['user_id']) && $_SESSION['is_admin']) {
+  try {
+    // Retrieve all users
+    $userStatement = $pdo->prepare("SELECT * FROM users");
+    $userStatement->execute();
+    $users = $userStatement->fetchAll(PDO::FETCH_ASSOC);
 
-  
+    // Retrieve all recipes
+    $recipeStatement = $pdo->prepare("SELECT * FROM recipe");
+    $recipeStatement->execute();
+    $recipes = $recipeStatement->fetchAll(PDO::FETCH_ASSOC);
 
-  // Display a list of users
 
-  if (!empty($users)) {
-    echo "<div class='dashboard'>";
+
+    // Display all users with option to delete
+   
+    echo "<div class='entity-container1'>";
+    echo "<h2>All Users</h2>";
+    if ($users) {
+        echo "<ul class='entity-list'>";
+        foreach ($users as $user) {
+            echo "<li>{$user['username']} ";
+            echo "<form action='delete.php' method='post' style='display:inline'>";
+            echo "<input type='hidden' name='user_id' value='{$user['id']}'><br>";
+            echo "<button type='submit' class='delete-button'>Delete</button>";
+            echo "</form>";
+            echo "</li>";
+        }
+        echo "</ul>";
+    } else {
+        echo "<p>No users found.</p>";
+    }
+    echo "</div>";
     
-    echo "<div class='left'>";
-      echo "<h2 style='text-align: center'>Users</h2>";
-    
-      echo "<ul>";
-      foreach($users as $user) {
-        echo "<li style='text-align: center'><a href='user_details.php?username={$user['username']}'>{$user['username']}</a>";
-        echo "<form action='../includes/admin/delete_user.php' method='post'>";
-        echo "<input type='hidden' name='user_id' value='{$user['id']}'>";
-        echo "<input type='submit' value='Delete' onclick='return confirm(\"Are you sure you want to delete this user?\");'>";
-        echo "</form>";
-        echo "</li>";
-      }
-      echo "</ul>";
+
+    // Display all recipes with option to delete
+    echo "<div class='entity-container2'>";
+    echo "<h2>All Recipes</h2>";
+    if ($recipes) {
+        echo "<ul class='entity-list'>";
+        foreach ($recipes as $recipe) {
+            echo "<li>{$recipe['name']} ";
+            echo "<form action='delete.php' method='post' style='display:inline'>";
+            echo "<input type='hidden' name='recipe_id' value='{$recipe['recipe_id']}'>";
+            echo "<button type='submit' class='delete-button'>Delete</button>";
+            echo "</form>";
+            echo "</li>";
+        }
+        echo "</ul>";
+    } else {
+        echo "<p>No recipes found.</p>";
+    }
     echo "</div>";
 
-    echo "<div class='right'>";
-      echo "<h2 style='text-align: center'>Matches</h2>";
-      
-      echo "</div>";
-      echo "</div>";
-  }
+    // Summary
+    echo "<div class='entity-container3'>";
+    echo "<h2>Summary</h2>";
+    echo "<table class='summary-table'>";
+    echo "<tr><th>Total Users</th><th>Total Recipes</th><th>Location</th><th>Count</th></tr>";
+    echo "<tr>";
+    echo "<td>" . count($users) . "</td>";
+    echo "<td>" . count($recipes) . "</td>";
 
-} catch (PDOException $e) {
-  echo "<h3>Error: </h3>" . $e->getMessage();
+    // Count of each location
+    $locationStatement = $pdo->query("SELECT location, COUNT(*) AS count FROM recipe GROUP BY location");
+    $locationCounts = $locationStatement->fetchAll(PDO::FETCH_ASSOC);
+    if ($locationCounts) {
+        foreach ($locationCounts as $locationCount) {
+            echo "<tr>";
+            echo "<td></td><td></td>";
+            echo "<td>{$locationCount['location']}</td>";
+            echo "<td>{$locationCount['count']}</td>";
+            echo "</tr>";
+        }
+    } else {
+        echo "<td></td><td></td><td colspan='2'>No locations found</td>";
+    }
+    echo "</table>";
+    echo "</div>";
+
+       
+    } catch (PDOException $e) {
+        echo "Connection failed: " . $e->getMessage();
+    }
+} else {
+    // Redirect to login page if not logged in as admin
+    header("Location: login.php");
+    exit();
 }
-
 ?>
