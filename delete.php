@@ -12,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $statement = $pdo->prepare("DELETE FROM users WHERE id = ?");
             $statement->execute([$userId]);
             // Redirect back to the admin dashboard or any desired page after deletion
-            header("Location: dashboard.php");
+            header("Location: delete_confirmation.php");
             exit();
         } catch (PDOException $e) {
             echo "Error deleting user: " . $e->getMessage();

@@ -120,9 +120,11 @@ try {
                 
                 <h3> Search All  Recipes</h3>
                 <form class="recipes">
-             <p>Enter recipe name here</P><br> <input type="text" placeholder="Enter keywords...">
-               <button type="submit">Search</button>
-               <br>
+                <form class="recipes" action="search.php" method="GET">
+                    <p>Enter recipe name here:</p>
+                    <input type="text" name="search_query" placeholder="Enter keywords...">
+                    <button type="submit">Search</button>
+                   
                
 
                <h3>Or Filter Below</h3>
@@ -143,6 +145,7 @@ try {
         <option value="Non-Vegan">Non-Vegan</option>
         <button type="submit">submit</button>
         </select>
+        <?php include("search.php");?>
             </form>
           </div>
          </div>
@@ -198,7 +201,7 @@ try {
         </div>
 
         <div class="trends">
-            <h2><a href="#">Whats happening on TribalTastes</a></h2>
+            <h2><a href="#"> TribalTastes Blog</a></h2>
            </div>
 
               <div class="grids">
@@ -207,18 +210,20 @@ try {
                 <section class="grid-33">
                     <div>
                     <h4 class="three">Our favourite African Recipe</h4>
+                    <p>"Gobe" offers a delightful fusion of flavors, combining the comforting simplicity of gari and beans into a hearty and satisfying dish that warms both the stomach and the soul.</p>
                     <img class="one" src="assests/images/gob3.jpg">
                     <h5>Gari and Beans aka Gobe </h5>
                     <P>The staple make up a complete protein.</P>
+                    <h5><a href="http://localhost:3000/recipe.php?name=Gobe"> Get the recipe</a></h5>
                 </div>
                 </section>
 
                 <section class="grid-40">
-                    <h3 >visit our youtube channel for videos</h3>
+                    <h3 >Follow us on  youtube</h3>
+                    <p> follow the live video tutorial to prepare your favourite Jollof Rice and Beef Sauce.we'll take you step-by-step through the process of creating this mouthwatering ensemble, ensuring that you can savor the essence of West African culinary tradition in the comfort of your own kitchen</p>
                 <iframe width="560" height="315" src="https://www.youtube.com/embed/RF7xafO-DwU?si=hD95vLRBODCtf1yW" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-                 </section>
-
-    
+                </section>
+             
               </main>
                  
                 
@@ -227,7 +232,7 @@ try {
          <footer>
             <div class="footer-container">
                 <div class="social-media"></div>
-                <h4><a href="#">Contact Us</a></h4>
+                <h4><a href="contact.php">Contact Us</a></h4>
 
                 <div class="footer-links">
                     <a href="#"><img class="five" src="assests/images/facebook.png" alt="Facebook"></a>

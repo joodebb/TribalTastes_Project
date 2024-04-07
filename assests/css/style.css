@@ -272,6 +272,8 @@ iframe{
   
 }
 
+
+
 .middle{
   text-align: center;
   justify-content: center;
@@ -279,7 +281,37 @@ iframe{
   border-top: 2px solid #dc116f
   
 }
+.grids{
+  padding-top: 20px;
+  padding-bottom: 10px;
+}
 
+
+.grid-33 p{
+font-family: serif;
+font-style: italic;
+padding-top: 10px;
+color: #45a049;
+font-weight: bold;
+
+}
+.grid-40{
+  margin-left: 250px;
+
+}
+
+.grid-40 h3{
+  text-align: center;
+}
+
+.grid-40 p{
+  font-style: italic;
+  padding-top: 5px;
+  text-align: center;
+  color: #45a049;
+  font-weight: bold;
+
+}
 .middle h2 :hover{
   color:#dc116f ;
   

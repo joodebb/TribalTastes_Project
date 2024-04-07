@@ -63,7 +63,7 @@ include "./includes/utils/dbh.inc.php";
   <footer>
             <div class="footer-container">
                 <div class="social-media"></div>
-                <h4><a href="#">Contact Us</a></h4>
+                <h4><a href="contact.php">Contact Us</a></h4>
 
                 <div class="footer-links">
                     <a href="#"><img class="five" src="assests/images/facebook.png" alt="Facebook"></a>
