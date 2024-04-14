@@ -179,17 +179,17 @@ try {
         $recipes = $statement->fetchAll(PDO::FETCH_ASSOC);
 
         if ($recipes) {
-            // Display each recipe with edit options
+            // Display each recipe with edit and delete options
             foreach ($recipes as $recipe) {
-                echo "<form action='/includes/recipe/upload_recipe.php' method='post' enctype='multipart/form-data'>";
-                echo "<input type='hidden' name='recipe_id' value='{$recipe['recipe_id']}'>"; // Hidden field for recipe ID
-                echo "<label for='photo'>Photo:</label>";
+                echo "<div>";
                 echo "<img src='../../uploads/{$recipe['photo']}' alt='{$recipe['name']}'><br>";
-                echo "<input type='file' id='photo' name='photo'><br>"; // Photo upload input
-                echo "<label for='name'>Name:</label>";
-                echo "<input type='text' id='name' name='name' value='{$recipe['name']}'><br><br>"; // Name input
-                echo "<input type='submit' value='Save'><br><br>"; // Save button
+                echo "<p>Name: {$recipe['name']}</p>";
+                echo "<form action='/includes/recipe/delete_recipe.php' method='post'>";
+                echo "<input type='hidden' name='recipe_id' value='{$recipe['recipe_id']}'>";
+                echo "<input type='submit' value='Delete'>";
                 echo "</form>";
+                echo "<a href='/edit_recipe.php?recipe_id={$recipe['recipe_id']}'>Edit</a>";
+                echo "</div>";
                 echo "<hr>";
             }
         } else {

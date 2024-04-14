@@ -712,7 +712,12 @@ color: black;
 
 
 
-
+.tabcontent1 {
+  display: none;
+  padding: 20px;
+  border: 1px solid purple;
+  padding-left: 300px;
+}
 
 .profile-info {
   padding-left: 70px;
@@ -911,3 +916,50 @@ padding-left: 500px;
       padding-bottom: 10px;
       color: #dc116f;
     }
+
+    /* edit recipe */
+
+    .edit_recipe {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+  }
+
+  .edit_recipe h1 {
+    text-align: center;
+}
+
+.edit_recipe label {
+  font-weight: bold;
+}
+
+.edit_recipe input[type="text"],
+.edit_recipe textarea,
+.edit_recipe select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.edit_recipe input[type="file"] {
+  margin-top: 10px;
+}
+
+
+.edit_recipe input[type="submit"] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.edit_recipe input[type="submit"]:hover {
+  background-color: #45a049;
+}
